@@ -202,6 +202,8 @@ class STP_API Layer::Tile : public sf::Drawable {
     ///
     ////////////////////////////////////////////////////////////
     std::string& GetPropertyValue(const std::string& name);
+    
+    unsigned int GetGid() const { return gid_; }
 
  private:
     friend class tmx::Layer;
