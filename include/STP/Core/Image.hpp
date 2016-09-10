@@ -92,7 +92,6 @@ class STP_API Image {
 
  private:
     std::string source_;
-    int32_t trans_;
     unsigned int width_, height_;
     std::string format_;
     sf::Texture texture_;

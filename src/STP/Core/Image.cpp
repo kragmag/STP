@@ -35,7 +35,6 @@ Image::Image() {}
 Image::Image(const std::string& source, unsigned int width,
              unsigned int height, int32_t trans, const std::string& format) :
         source_(source),
-        trans_(trans),
         width_(width),
         height_(height),
         format_(format) {
