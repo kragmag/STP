@@ -76,7 +76,7 @@ TileMap::TileMap(const std::string& file_to_parse) {
     // Parse the map properties
     Parser::ParseProperties(map_node, this);
 
-    ShowObjects(false);
+    //ShowObjects(false);
 }
 
 void TileMap::AddLayer(tmx::Layer* newlayer) {

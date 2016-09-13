@@ -142,7 +142,7 @@ tmx::Image Parser::ParseImage(const pugi::xml_node& image_node, const std::strin
 }
 
 tmx::TileSet* Parser::ParseTileSet(pugi::xml_node& tileset_node, const std::string& working_dir) {
-    unsigned int firstgid, tilewidth, tileheight, spacing = 0, margin = 0;
+    unsigned int firstgid, tilewidth, tileheight, spacing = 0, margin = 0, tileCount = 0;
     std::string name;
     tmx::Image image_data;
     sf::Vector2i tileoffset_data = {0, 0};
@@ -166,6 +166,7 @@ tmx::TileSet* Parser::ParseTileSet(pugi::xml_node& tileset_node, const std::stri
     name = tileset_node_.attribute("name").as_string();
     tilewidth = tileset_node_.attribute("tilewidth").as_uint();
     tileheight = tileset_node_.attribute("tileheight").as_uint();
+    tileCount = tileset_node_.attribute("tilecount").as_uint();
 
     // Check if some attributes exists in tileset_node_
     pugi::xml_attribute attribute_spacing = tileset_node_.attribute("spacing");
@@ -187,7 +188,7 @@ tmx::TileSet* Parser::ParseTileSet(pugi::xml_node& tileset_node, const std::stri
     }
 
     // Create the new TileSet
-    tmx::TileSet* tileset = new tmx::TileSet(firstgid, name, tilewidth, tileheight,
+    tmx::TileSet* tileset = new tmx::TileSet(firstgid, tileCount, name, tilewidth, tileheight,
                                              image_data, spacing, margin, tileoffset_data);
 
     // Parse each tile property

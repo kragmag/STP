@@ -63,6 +63,7 @@ class STP_API TileSet : public tmx::Properties {
     /// \brief Constructs a tileset
     ///
     /// \param firstgid   The first global tile ID of this tileset (this global ID maps to the first tile in this tileset)
+    /// \param tilecount  Amout of tiles in this tileset
     /// \param name       The name of the tileset in tiles
     /// \param tilewidth  The width of the tiles in pixels
     /// \param tileheight The height of the tiles in pixels
@@ -72,8 +73,8 @@ class STP_API TileSet : public tmx::Properties {
     /// \param tileoffset Offset in pixels, to be applied when drawing a tile from the related tileset
     ///
     ////////////////////////////////////////////////////////////
-    TileSet(unsigned int firstgid, const std::string& name, unsigned int tilewidth,
-            unsigned int tileheight, tmx::Image image, unsigned int spacing = 0,
+    TileSet(unsigned int firstgid, unsigned int tilecount, const std::string& name, unsigned int tilewidth,
+            unsigned int tileheight, const tmx::Image& image, unsigned int spacing = 0,
             unsigned int margin = 0, sf::Vector2i tileoffset = {0, 0});
 
     ////////////////////////////////////////////////////////////

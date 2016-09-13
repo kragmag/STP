@@ -34,8 +34,8 @@ namespace tmx {
 
 TileSet::TileSet() {}
 
-TileSet::TileSet(unsigned int firstgid, const std::string& name, unsigned int tilewidth,
-                 unsigned int tileheight, tmx::Image image, unsigned int spacing,
+TileSet::TileSet(unsigned int firstgid, unsigned int tilecount, const std::string& name, unsigned int tilewidth,
+                 unsigned int tileheight, const tmx::Image& image, unsigned int spacing,
                  unsigned int margin, sf::Vector2i tileoffset) :
         firstgid_(firstgid),
         name_(name),
@@ -62,22 +62,39 @@ TileSet::TileSet(unsigned int firstgid, const std::string& name, unsigned int ti
         width_no_spacing_ = width_no_margin;
         height_no_spacing_ = height_no_margin;
     }
-    lastgid_ = firstgid + (width_no_spacing_ / tilewidth) * (height_no_spacing_ / tileheight) - 1;
+    
+    if (tilecount == 0)
+    {
+        lastgid_ = firstgid + (width_no_spacing_ / tilewidth) * (height_no_spacing_ / tileheight) - 1;
+        tilecount = lastgid_ - firstgid_ + 1;
+    }
+    else
+    {
+        lastgid_ = firstgid + tilecount - 1;
+        
+    }
+    
+            
+
 
     // Add each tile to the TileSet
-    unsigned int tile_amount = lastgid_ - firstgid_ + 1;
     sf::Vector2u cont;
     sf::Vector2u tile_pos;
-    tiles_.reserve(tile_amount);
-    for (unsigned int i = 0; i < tile_amount; ++i) {
+    tiles_.reserve(tilecount);
+    for (unsigned int i = 0; i < tilecount; ++i) {
         tile_pos.x = (cont.x * tilewidth_) + (spacing_ * cont.x) + margin_;
         tile_pos.y = (cont.y * tileheight_) + (spacing_ * cont.y) + margin_;
         sf::IntRect texture_rect(tile_pos.x, tile_pos.y, tilewidth_, tileheight_);
 
         tiles_.push_back(tmx::TileSet::Tile(i, texture_rect, this));
 
-        cont.x = (cont.x + 1) % (width_no_spacing_ / tilewidth_);
-        if (cont.x == 0) cont.y += 1;
+        if (width_no_spacing_ >= tilewidth_)
+        {
+            cont.x = (cont.x + 1) % (width_no_spacing_ / tilewidth_);
+            if (cont.x == 0) cont.y += 1;
+        }
+        
+        
     }
 }
 
