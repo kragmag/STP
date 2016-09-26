@@ -44,6 +44,7 @@ TileMap::TileMap(const std::string& file_to_parse) {
     }
 
     pugi::xml_node map_node;
+    
 
     if (!(map_node = tmx_file.child("map"))) {
         fprintf(stdout, "The document is not a valid TMX file.\n");
