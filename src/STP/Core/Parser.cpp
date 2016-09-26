@@ -52,7 +52,7 @@ std::string Parser::DecompressString(const std::string& compressed_string) {
     zstream.zfree = Z_NULL;
     zstream.opaque = Z_NULL;
     zstream.next_in = const_cast<Bytef*>(reinterpret_cast<const Bytef*>(compressed_string.data()));
-    zstream.avail_in = compressed_string.size();
+    zstream.avail_in = static_cast<uInt>(compressed_string.size());
 
     int result;
     result = inflateInit2(&zstream, 15 + 32);
